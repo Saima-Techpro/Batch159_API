@@ -12,7 +12,9 @@ public class JsonPlaceHolderBaseUrl {
 
     @Before//@Before annotation will run this method before each @Test methods. So, spec object will not be Null.
     public void setUp() {
-        spec = new RequestSpecBuilder().setContentType(ContentType.JSON).setBaseUri("https://jsonplaceholder.typicode.com").build();
+        String baseUrl = "https://jsonplaceholder.typicode.com";
+
+        spec = new RequestSpecBuilder().setContentType(ContentType.JSON).setBaseUri(baseUrl).build();
     }
 
 }

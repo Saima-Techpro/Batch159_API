@@ -26,32 +26,34 @@ public class Get02 {
 
     @Test
     public void get02() {
-        //Set the url
+        //  Set the url
         String url = "https://restful-booker.herokuapp.com/booking/0";
 
-        //Set the expected data
+        //  Set the expected data
 
-        //Send the request and get the response
-        Response response = given().get(url);
-        //response.prettyPrint();
+        //  Send the request and get the response
+        Response response = given().when().get(url);
+        response.prettyPrint();
 
-        //Do assertion
+        // Do assertion
         response
                 .then()
-                .statusCode(404)//HTTP Status code should be 404
-                .statusLine("HTTP/1.1 404 Not Found");//Status Line should be HTTP/1.1 404 Not Found
+                .statusCode(404)    //HTTP Status code should be 404
+                .statusLine("HTTP/1.1 404 Not Found");  //Status Line should be HTTP/1.1 404 Not Found
 
 
         //Response body contains "Not Found"
-        String responseBody = response.asString();
+        String responseBody = response.asString(); // we can change response to other data type using as methods
 
-        //With assertEquals() method we compare 2 parameters. If they are equals test will pass. If they are NOT equals test will fail.
+        //With assertEquals() method we compare 2 parameters. If they are equals test will pass.
+        // If they are NOT equals test will fail.
         //We can use 3 parameters for customizing the error message.
         assertEquals("Body did not match", "Not Found", responseBody);
 
         //OR
-        //With assertTrue() method we check if the condition is true. If if the condition is true test will pass. Otherwise test will fail.
+        //With assertTrue() method we check if the condition is true. If the condition is true test will pass. Otherwise test will fail.
         assertTrue(responseBody.contains("Not Found"));
+        assertTrue("Body did not match", responseBody.contains("Not Found"));
 
         // Response body does not contain "TechProEd"
         //With assertNotEquals() method we compare 2 parameters. If they are NOT equals test will pass. If they are equals test will fail.

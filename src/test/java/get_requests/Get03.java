@@ -26,6 +26,9 @@ public class Get03 {
                 “userId” is 2
          */
 
+    // First 2 Get classes are checking Metadata mainly
+    // In this class, we will check Metadata as well as get into the body of the response and get and assert its values
+
     @Test
     public void get03() {
         //Set the url
@@ -38,7 +41,7 @@ public class Get03 {
         response.prettyPrint();
 
         //Do assertion
-        //1st way: With Hard Assertion
+        //1st way: Hard Assertion
         response
                 .then()
                 .statusCode(200)
@@ -47,7 +50,7 @@ public class Get03 {
                 .body("completed", equalTo(false))
                 .body("userId", equalTo(2));
 
-        //2nd way: With Soft Assertion
+        //2nd way: Soft Assertion
         response
                 .then()
                 .statusCode(200)
@@ -57,13 +60,15 @@ public class Get03 {
                         "userId", equalTo(2));
 
         /*
-            1)When you run the code Java stops the execution in the first failure.
+            1)    When you run the code Java stops the execution in the first failure.
                 So, assertions after the failure will not be executed.
                 But assertions before the failure will be executed and passed.
-            2)If Java stops the execution in the first failure this is called "Hard Assertion"
-            3)If Java does not stop the execution in the first failure this is called "Soft Assertion"
-            4)If you use multiple body() method for assertion, it will work like "Hard Assertion"
-            5)If you use one single body() method with multiple assertion, it will work like "Soft Assertion"
+            2)   If Java stops the execution in the first failure this is called "Hard Assertion"
+            3)   If Java does not stop the execution in the first failure this is called "Soft Assertion"
+            4)   If you use multiple body() methods for assertion, it will work like "Hard Assertion"
+            5)   If you use one single body() method with multiple assertion, it will work like "Soft Assertion"
          */
+
+
     }
 }

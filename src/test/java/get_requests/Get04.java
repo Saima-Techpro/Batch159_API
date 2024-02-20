@@ -15,10 +15,10 @@ public class Get04 extends JsonPlaceHolderBaseUrl {
         /*
              Given
                  https://jsonplaceholder.typicode.com/todos
-             When
-                  I send a GET request to the Url
              And
                  Accept type is “application/json”
+             When
+                  I send a GET request to the Url
              Then
                  HTTP Status Code should be 200
              And
@@ -34,9 +34,10 @@ public class Get04 extends JsonPlaceHolderBaseUrl {
     @Test
     public void get04() {
         //Set the url
-        //String url = "https://jsonplaceholder.typicode.com/todos";//This usage is not recommended. We will put base url into request specification in the base_url package.
+        //String url = "https://jsonplaceholder.typicode.com/todos"; //This usage is not recommended.
+        // We will put base url into request specification in the base_url package.
         //To be able to reach spec object we need to extend to the related class.
-        spec.pathParam("first", "todos");
+        spec.accept(ContentType.JSON).pathParam("first", "todos");
         //"first" named parameter represents the "todos" parameter in the endpoint.
 
         //Set the expected data
