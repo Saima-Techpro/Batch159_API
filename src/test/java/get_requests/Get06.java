@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 
 public class Get06 extends HerOkuAppBaseUrl {
@@ -44,7 +45,7 @@ public class Get06 extends HerOkuAppBaseUrl {
         //Set the expected data
 
         //Send the request and get the response
-        Response response = given(spec).get("{first}/{second}");
+        Response response = given(spec).get("{first}/{second}");  // "{}/{}/{}"
         response.prettyPrint();
 
         //Do assertion
@@ -61,9 +62,32 @@ public class Get06 extends HerOkuAppBaseUrl {
                         "bookingdates.checkout", equalTo("2019-01-01"),
                         "additionalneeds", equalTo("Breakfast"));
 
-        //2nd Way: We will use JsonPath class to extract the data outside the response body
+        // we can also use is() method from hamcrest matchers
+        response.then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("firstname",is("John")
+                        ,"lastname",is("Smith")
+                        ,"totalprice",is(111)
+                        ,"depositpaid",is(true)
+                        ,"bookingdates.checkin",is("2018-01-01")
+                        ,"bookingdates.checkout", is("2019-01-01")
+                        ,"additionalneeds",is("Breakfast"));
+
+        /* NOTE:  We have multiple ways to extract the data outside the response body
+                  i) asString() => changes to String data type
+                  ii) JsonPath
+                  iii) Map
+                  iv) Pojo class
+         */
+
+
+        //2nd Way: We will use JsonPath class extract the data outside the response body
         //Create JsonPath Object
         JsonPath jsonPath = response.jsonPath();
+
+        String firstName = jsonPath.getString("firstname"); // we can get the data out of response body and store it in String and do String Manipulation
+        System.out.println("firstName = " + firstName);
 
         //Get the data
         assertEquals("John", jsonPath.getString("firstname"));
@@ -72,6 +96,13 @@ public class Get06 extends HerOkuAppBaseUrl {
         assertEquals("2018-01-01", jsonPath.getString("bookingdates.checkin"));
         assertEquals("2019-01-01", jsonPath.getString("bookingdates.checkout"));
         assertEquals("Breakfast", jsonPath.getString("additionalneeds"));
+
+        // HomeWork :
+        // Do Assertion with soft Assertion
+
+
+
+
 
         //Soft Assertion --> Test NG soft assertion
         //To do soft assert follow these 3 steps:

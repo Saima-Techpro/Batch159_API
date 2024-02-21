@@ -56,8 +56,8 @@ public class Get03 {
                 .statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("title", equalTo("et itaque necessitatibus maxime molestiae qui quas velit"),
-                        "completed", equalTo(false),
-                        "userId", equalTo(2));
+                        "completed", equalTo(true),
+                        "userId", equalTo(21));
 
         /*
             1)    When you run the code Java stops the execution in the first failure.

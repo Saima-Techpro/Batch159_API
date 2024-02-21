@@ -8,6 +8,7 @@ import org.junit.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
 public class Get04 extends JsonPlaceHolderBaseUrl {
@@ -37,6 +38,7 @@ public class Get04 extends JsonPlaceHolderBaseUrl {
         //String url = "https://jsonplaceholder.typicode.com/todos"; //This usage is not recommended.
         // We will put base url into request specification in the base_url package.
         //To be able to reach spec object we need to extend to the related class.
+
         spec.accept(ContentType.JSON).pathParam("first", "todos");
         //"first" named parameter represents the "todos" parameter in the endpoint.
 
@@ -51,15 +53,18 @@ public class Get04 extends JsonPlaceHolderBaseUrl {
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
-                .body("", hasSize(200),
+                .body("[0].title",equalTo("delectus aut autem"), // --> To check Json value from a list of Jsons first write its index.---> "[0].title"
+                        "[1].completed",equalTo(false), // --> To check Json value from a list of Jsons first write its index.---> "[1].completed"
+                        "", hasSize(200),  // OR  "title", hasSize(200)
                         "title", hasItem("quis eius est sint explicabo"),
                         "userId", hasItems(2, 7, 9));
 
         /*
-        If response body returns as a list:
-        We can check list size with hasSize() method
-        We can check if list contains an item with hasItem() method
-        We can check if list contains multiple items with hasItems() method
+        If response body returns Collection (list):
+                i)  check its size by hasSize() method,
+                ii) check if an element exists in the collection by hasItem() method,
+                iii) check if multiple elements exist by hasItems() method,
+
          */
     }
 }

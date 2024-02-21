@@ -7,8 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
 
 public class Get05 extends HerOkuAppBaseUrl {
@@ -24,6 +23,10 @@ public class Get05 extends HerOkuAppBaseUrl {
            Among the data there should be someone whose firstname is "John" and lastname is "Smith"
     */
 
+    // API Document for this site: https://restful-booker.herokuapp.com/apidoc/index.html
+    // Show this and explain what type of API requests are allowed ..
+    // Explain the differrence between path params and query params
+
     @Test
     public void get05() {
         //Set the url
@@ -36,6 +39,7 @@ public class Get05 extends HerOkuAppBaseUrl {
 
 
         //Send the request and get the response
+//        Response response = given().spec(spec).get("{first}");
         Response response = given(spec).get("{first}");
         response.prettyPrint();
 
@@ -44,11 +48,11 @@ public class Get05 extends HerOkuAppBaseUrl {
         response
                 .then()
                 .statusCode(200)
-                .body("bookingid", hasSize(greaterThan(0)));//hasSize(greaterThan(0)) method checks if the size of the bookingIds is greater than 0
+                .body("bookingid", hasSize(greaterThan(0)));   //hasSize(greaterThan(0)) method checks if the size of the bookingIds is greater than 0
 
 
         //OR
-        assertTrue(response.asString().contains("bookingid"));//If the response body contains "bookingId", it means body is not empty.
+        assertTrue(response.asString().contains("bookingid"));  //If the response body contains "bookingId", it means body is not empty.
 
 
     }
