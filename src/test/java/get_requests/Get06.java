@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class Get06 extends HerOkuAppBaseUrl {
         /*
         Given
-            https://restful-booker.herokuapp.com/booking/974
+            https://restful-booker.herokuapp.com/booking/99
         When
             User send a GET request to the URL
         Then
@@ -40,7 +40,7 @@ public class Get06 extends HerOkuAppBaseUrl {
     @Test
     public void get06() {
         //Set the url
-        spec.pathParams("first", "booking", "second", 204);
+        spec.pathParams("first", "booking", "second", 99);
 
         //Set the expected data
 
@@ -88,6 +88,8 @@ public class Get06 extends HerOkuAppBaseUrl {
 
         String firstName = jsonPath.getString("firstname"); // we can get the data out of response body and store it in String and do String Manipulation
         System.out.println("firstName = " + firstName);
+        String checkinDate= jsonPath.getString("bookingdates.checkin");
+        System.out.println("checkinDate = " + checkinDate);
 
         //Get the data
         assertEquals("John", jsonPath.getString("firstname"));
@@ -97,11 +99,8 @@ public class Get06 extends HerOkuAppBaseUrl {
         assertEquals("2019-01-01", jsonPath.getString("bookingdates.checkout"));
         assertEquals("Breakfast", jsonPath.getString("additionalneeds"));
 
-        // HomeWork :
+
         // Do Assertion with soft Assertion
-
-
-
 
 
         //Soft Assertion --> Test NG soft assertion

@@ -37,18 +37,18 @@ public class Get08 extends JsonPlaceHolderBaseUrl {
 
         //Send the request and get the response
         Response response = given(spec).get("{first}");
-        response.prettyPrint();
+//        response.prettyPrint();
 
         //Do assertion
         assertEquals(200, response.statusCode());
 
 //        Print all ids greater than 190 on the console
-        //1st Way: By using for loop
+        //1st Way: Using list and loop
         JsonPath jsonPath = response.jsonPath();
         List<Integer> idList = jsonPath.getList("id");
         //System.out.println("idList = " + idList);
 
-        List<Integer> idsGreaterThan190 = new ArrayList<>();
+        List<Integer> idsGreaterThan190 = new ArrayList<>(); // create an empty list
 
         for (int w : idList) {
             if (w > 190) {
@@ -61,10 +61,19 @@ public class Get08 extends JsonPlaceHolderBaseUrl {
         assertEquals(10, idsGreaterThan190.size());
 
         //2nd Way: By using Groovy Language --> Recommended
-        List<Integer> idsGreaterThan190Groovy = jsonPath.getList("findAll{it.id>190}.id");//Groovy Language --> Java based programming language
+
+        //Groovy Language --> Java based programming language
+        // We use it when we need to use conditional asserts for Collections
+
+        System.out.println(jsonPath.getList("findAll{it.id>190}")); // returns a list of all jsons
+        System.out.println(jsonPath.getList("findAll{it.id>190}.id")); // limit the results by declaring the key
+
+
+        List<Integer> idsGreaterThan190Groovy = jsonPath.getList("findAll{it.id>190}.id");
         System.out.println("idsGreaterThan190Groovy = " + idsGreaterThan190Groovy);
 
-//Assert that there are 10 ids greater than 190
+
+//      Assert that there are 10 ids greater than 190
         assertEquals(10, idsGreaterThan190Groovy.size());
 
 //        3)Print all userIds whose ids are less than 5 on the console
@@ -80,6 +89,9 @@ public class Get08 extends JsonPlaceHolderBaseUrl {
 
 //        Assert that "delectus aut autem" is one of the titles whose id is less than 5
         assertTrue(titleList.contains("delectus aut autem"));
+
+        // we can find anything using this logic
+        System.out.println(jsonPath.getList("findAll{it.title=='ut quas possimus exercitationem sint voluptates'}.id"));
     }
 
 }

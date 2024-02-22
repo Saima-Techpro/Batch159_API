@@ -21,6 +21,8 @@ public class Get05 extends HerOkuAppBaseUrl {
            Status code is 200
          And
            Among the data there should be someone whose firstname is "John" and lastname is "Smith"
+
+           Among the data there should be someone whose firstname is "Jane" and lastname is "Doe"
     */
 
     // API Document for this site: https://restful-booker.herokuapp.com/apidoc/index.html
@@ -33,7 +35,7 @@ public class Get05 extends HerOkuAppBaseUrl {
         //https://restful-booker.herokuapp.com/booking?firstname=John&lastname=Smith
         spec
                 .pathParam("first", "booking")
-                .queryParams("firstname", "John", "lastname", "Smith");
+                .queryParams("firstname", "Jane", "lastname", "Doe");
 
         //Set the expected data
 
@@ -41,18 +43,19 @@ public class Get05 extends HerOkuAppBaseUrl {
         //Send the request and get the response
 //        Response response = given().spec(spec).get("{first}");
         Response response = given(spec).get("{first}");
-        response.prettyPrint();
+        response.prettyPrint();   // It returns all bookings done by John Smith
 
 
         //Do assertion
         response
                 .then()
-                .statusCode(200)
+                .statusCode(200).body(containsString("bookingid"))
                 .body("bookingid", hasSize(greaterThan(0)));   //hasSize(greaterThan(0)) method checks if the size of the bookingIds is greater than 0
 
 
         //OR
-        assertTrue(response.asString().contains("bookingid"));  //If the response body contains "bookingId", it means body is not empty.
+        assertTrue(response.asString().contains("bookingid"));  //If the response body contains "bookingid", it means body is not empty.
+                                                                    // It returns all bookings done by John Smith
 
 
     }
