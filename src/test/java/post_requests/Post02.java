@@ -1,8 +1,6 @@
 package post_requests;
 
 import base_urls.JsonPlaceHolderBaseUrl;
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
 import test_data.JsonPlaceHolderTestData;
@@ -44,27 +42,28 @@ public class Post02 extends JsonPlaceHolderBaseUrl {
 
         //Set the expected data
         //We can set the payload by using Map --> This is recommended because we can get the data from expected data in assertion part dynamically.
-        Map<String, Object> expectedData = new HashMap<>();
-        expectedData.put("userId", 55);
-        expectedData.put("title", "Tidy your room");
-        expectedData.put("completed", false);
-        System.out.println("expectedData = " + expectedData);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("userId", 55);
+        payload.put("title", "Tidy your room");
+        payload.put("completed", false);
+        System.out.println("expectedData = " + payload);
 
         //Send the request and get the response
-        //We need a serializer to convert Java Object to JSON --> From Java to JSON ==> Serialization
+        //We need a serializer to convert Java Object to JSON --> From Java to JSON ==> Serialization (INTERVIEW)
+        // we need to add Jackson-databind dependency to pom.xml for serialization
         // We don't need to add contentType now as we have added it in our spec (in base url class)
-        Response response = given(spec).body(expectedData).post("{first}");
+        Response response = given(spec).body(payload).post("{first}");
         response.prettyPrint();
 
         //Do assertion
         //To do assertion we need 2 data in same types. We need to convert Json response into Java object
         //To convert Json to Java object --> De-Serialization
-        Map<String, Object> actualData = response.as(HashMap.class);
+        Map<String, Object> actualData = response.as(HashMap.class);  // De-Serialization
         System.out.println("actualData = " + actualData);
 
-        assertEquals(expectedData.get("completed"), actualData.get("completed"));
-        assertEquals(expectedData.get("userId"), actualData.get("userId"));
-        assertEquals(expectedData.get("title"), actualData.get("title"));
+        assertEquals(payload.get("completed"), actualData.get("completed"));
+        assertEquals(payload.get("userId"), actualData.get("userId"));
+        assertEquals(payload.get("title"), actualData.get("title"));
         //We did not use any hard codding in assertion part
 
     }
@@ -75,20 +74,20 @@ public class Post02 extends JsonPlaceHolderBaseUrl {
         spec.pathParam("first", "todos");
 
         //Set the expected data
-        Map<String, Object> expectedData = JsonPlaceHolderTestData.expectedDataMap(55,"Tidy your room",false);
-        System.out.println("expectedData = " + expectedData);
+        Map<String, Object> payload = JsonPlaceHolderTestData.jsonPlaceHolderMapper(55,"Tidy your room",false);
+        System.out.println("payload = " + payload);
 
         //Send the request and get the response
-        Response response = given(spec).body(expectedData).post("{first}");
+        Response response = given(spec).body(payload).post("{first}");
         response.prettyPrint();
 
         //Do assertion
         Map<String, Object> actualData = response.as(HashMap.class);
         System.out.println("actualData = " + actualData);
 
-        assertEquals(expectedData.get("completed"), actualData.get("completed"));
-        assertEquals(expectedData.get("userId"), actualData.get("userId"));
-        assertEquals(expectedData.get("title"), actualData.get("title"));
+        assertEquals(payload.get("completed"), actualData.get("completed"));
+        assertEquals(payload.get("userId"), actualData.get("userId"));
+        assertEquals(payload.get("title"), actualData.get("title"));
         //We did not use any hard codding in assertion part
 
     }

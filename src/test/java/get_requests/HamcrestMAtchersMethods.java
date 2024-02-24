@@ -53,7 +53,8 @@ public class HamcrestMAtchersMethods {
     sameInstance(expected):         Matches if the examined object is the same instance as the specified object.
     hasProperty(propertyName):      Matches if the examined object has a JavaBean property with the specified name.
 
-        These are just some of the commonly used Hamcrest matchers and methods. Hamcrest provides a rich set of matchers, allowing you to create expressive and readable assertions in your tests.
+        These are just some of the commonly used Hamcrest matchers and methods. Hamcrest provides a rich set of matchers,
+        allowing you to create expressive and readable assertions in your tests.
 
      */
 

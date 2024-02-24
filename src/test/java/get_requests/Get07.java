@@ -84,8 +84,8 @@ public class Get07 extends PetStoreBaseUrl {
 
         // We learned how to get data from nested structures of response body
 
-         /*  HW TASK
-            Given
+         /*
+        Given
             https://jsonplaceholder.typicode.com/users/1
         When
             User send GET Request to the URL

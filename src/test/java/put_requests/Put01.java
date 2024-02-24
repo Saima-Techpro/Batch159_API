@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
-import static test_data.JsonPlaceHolderTestData.expectedDataMap;
+import static test_data.JsonPlaceHolderTestData.jsonPlaceHolderMapper;
 
 public class Put01 extends JsonPlaceHolderBaseUrl {
          /*
@@ -37,7 +37,7 @@ public class Put01 extends JsonPlaceHolderBaseUrl {
         spec.pathParams("first", "todos", "second", 198);
 
         //Set the expected data
-        Map<String, Object> expectedData = expectedDataMap(21, "Wash the dishes", false);
+        Map<String, Object> expectedData = jsonPlaceHolderMapper(21, "Wash the dishes", false);
         System.out.println("expectedData = " + expectedData);
 
         //Send the request and get the response
