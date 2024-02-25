@@ -11,6 +11,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static test_data.JsonPlaceHolderTestData.jsonPlaceHolderMapper;
 
 public class Post02 extends JsonPlaceHolderBaseUrl {
 
@@ -74,7 +75,8 @@ public class Post02 extends JsonPlaceHolderBaseUrl {
         spec.pathParam("first", "todos");
 
         //Set the expected data
-        Map<String, Object> payload = JsonPlaceHolderTestData.jsonPlaceHolderMapper(55,"Tidy your room",false);
+//        Map<String, Object> payload = JsonPlaceHolderTestData.jsonPlaceHolderMapper(55,"Tidy your room",false);
+        Map<String, Object> payload = jsonPlaceHolderMapper(55,"Tidy your room",false);
         System.out.println("payload = " + payload);
 
         //Send the request and get the response

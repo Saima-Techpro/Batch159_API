@@ -45,18 +45,21 @@ public class Get09 extends HerOkuAppBaseUrl {
         System.out.println("bookingMap = " + bookingMap);
 
         // Then outer map
-        Map<String, Object> expectedData = herokuAppMapper("Jane", "Doe", 111, true,bookingMap, "Extra pillows please" );
+        Map<String, Object> expectedData = herokuAppMapper("John", "Smith", 111, true,bookingMap, "Extra pillows please" );
         System.out.println("expectedData = " + expectedData);
 
 
         //Send the request and get the response
-        Response response = given(spec).get("{first}/{second}");
+        Response response = given(spec).get("{first}/{second}"); // Serialization
         response.prettyPrint();
 
         //Do assertion
-        // De-serialisation
 
-        Map<String, Object>  actualData = response.as(HashMap.class);
+        // De-serialisation
+        Map<String, Object>  actualData = response.as(HashMap.class); // De-Serialization
+
+//        Object obj = new HashMap<>();
+//        (Map)obj.get();
 
         assertEquals(200, response.statusCode());
         assertEquals(expectedData.get("firstname"), actualData.get("firstname"));

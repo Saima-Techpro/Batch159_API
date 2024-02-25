@@ -25,7 +25,7 @@ public class Put01 extends JsonPlaceHolderBaseUrl {
        Then
              Status code is 200
              And response body is like   {
-                               "userId": 21,
+                               "userId": 55,
                                "title": "Wash the dishes",
                                "completed": false
                               }
@@ -37,7 +37,7 @@ public class Put01 extends JsonPlaceHolderBaseUrl {
         spec.pathParams("first", "todos", "second", 198);
 
         //Set the expected data
-        Map<String, Object> expectedData = jsonPlaceHolderMapper(21, "Wash the dishes", false);
+        Map<String, Object> expectedData = jsonPlaceHolderMapper(55, "Wash the dishes", false);
         System.out.println("expectedData = " + expectedData);
 
         //Send the request and get the response
