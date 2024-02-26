@@ -49,5 +49,6 @@ public class Post04 extends JsonPlaceHolderBaseUrl {
         assertEquals(payLoad.getUserId(),actualData.getUserId());
         assertEquals(payLoad.getTitle(),actualData.getTitle());
         assertEquals(payLoad.getCompleted(),actualData.getCompleted());
+
     }
 }

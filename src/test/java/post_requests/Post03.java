@@ -1,6 +1,7 @@
 package post_requests;
 
 import base_urls.HerOkuAppBaseUrl;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -77,6 +78,20 @@ public class Post03 extends HerOkuAppBaseUrl {
         // You can also use JsonPath() for assertions
 
         // De-serialisation
+
+        // 2nd way: using assertEqual() and jsonPath()
+        JsonPath jsonPath = response.jsonPath();
+        assertEquals(200,response.statusCode());
+        assertEquals(payload.get("firstname"), jsonPath.getString("booking.firstname"));
+        assertEquals(payload.get("lastname"), jsonPath.getString("booking.lastname"));
+        assertEquals(payload.get("totalprice"), jsonPath.getInt("booking.totalprice"));
+        assertEquals(payload.get("depositpaid"), jsonPath.getBoolean("booking.depositpaid"));
+        assertEquals(bookingDatesMap.get("checkin"), jsonPath.getString("booking.bookingdates.checkin"));
+        assertEquals(bookingDatesMap.get("checkout"), jsonPath.getString("booking.bookingdates.checkout"));
+
+        assertEquals(payload.get("additionalneeds"), jsonPath.getString("booking.additionalneeds"));
+
+
 
         Map<String ,Object> actualData = response.as(HashMap.class);
 
