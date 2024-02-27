@@ -18,6 +18,11 @@ public class JsonPlaceHolderTestData {
         }
         return map;
     }
+
+    public static String stringBody(Integer userId, String title, Boolean completed){
+        return "{ \"userId\": "+userId+", \"title\": \""+title+"\", \"completed\": "+completed+" }";
+    }
+
 }
 
 // We use wrapper class of Data types (Integer, Boolean etc.) in this class
