@@ -29,27 +29,24 @@ public class Get13SpaceX extends SpacexDataBaseUrl {
     */
     @Test
     public void get(){
-        // Set Url:
-        spec.pathParam("first","launches");
-        // Set Expected Data:
-        // Sent Request and Get Response:
-        Response response =  given(spec).when().get("{first}");
+        spec.pathParam("first","launches")    ;
+        Response response = given(spec).when().get("{first}");
         response.prettyPrint();
-        // Do Assertions:
         JsonPath json = response.jsonPath();
         //  Status code is 200
         assertEquals(200,response.statusCode());
-        // There are  111 launches
-        int numOfFlights = json.getList("flight_number").size();
-        assertEquals(111,numOfFlights);
-        //  "Falcon 1" and "Falcon 9" are among the rocket names
+        //    There are  111 launches
+        int numOfLaunches = json.getList("flight_number").size();
+        assertEquals(111,numOfLaunches);
+        //   "Falcon 1" and "Falcon 9" are among the rocket names
         List<String> rocketNamesList =  json.getList("rocket.rocket_name");
         assertTrue(rocketNamesList.contains("Falcon 1"));
         assertTrue(rocketNamesList.contains("Falcon 9"));
-        response.then()
-                .body("rocket.rocket_name",hasItems("Falcon 1","Falcon 9"));
         // 25 launches are fired on 2020
-        int flightNums2020 = json.getList("findAll{it.launch_year=='2020'}").size();
-        assertEquals(25,flightNums2020);
+        int numOfLaunch2020 = json.getList("findAll{it.launch_year=='2020'}").size();
+        assertEquals(25,numOfLaunch2020);
+        // "Trailblazer" is one of the  failed mission name
+        List<String> names = json.getList("findAll{it.launch_success== false}.mission_name");
+        assertTrue(names.contains("Trailblazer"));
     }
 }
