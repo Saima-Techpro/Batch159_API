@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static junit.framework.TestCase.assertEquals;
 
 public class C01PostBooking extends HerOkuAppBaseUrl {
-    public static int bookingId;
+    public static int bookingid;
     /*
 
     Given
@@ -70,8 +70,8 @@ public class C01PostBooking extends HerOkuAppBaseUrl {
         assertEquals(payLoad.getBookingdates().getCheckin(),actualData.getBooking().getBookingdates().getCheckin());
         assertEquals(bookingMap.getCheckout(),actualData.getBooking().getBookingdates().getCheckout());
 
-        bookingId = response.jsonPath().getInt("bookingid");
-        System.out.println("bookingId = " + bookingId);
+        bookingid = response.jsonPath().getInt("bookingid");
+        System.out.println("bookingId = " + bookingid);
 
     }
 }
